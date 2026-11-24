@@ -34,6 +34,19 @@ if (webgl) initGlobe(document.getElementById('globe-canvas'), { reduced, onRegio
 const story = webgl && !reduced && hasGsap ? safe(() => initStory(document.getElementById('story-canvas'), { reduced }), null) : null;
 if (!story) root.classList.add('no-webgl');
 
+// ── Loading intro: wait for fonts + a minimum beat so the eclipse can form ──
+const loader = document.getElementById('loader');
+const loaderDone = new Promise((resolve) => {
+  if (!loader) { resolve(); return; }
+  const minShow = new Promise((r) => setTimeout(r, Math.max(0, (reduced ? 200 : 1900) - performance.now())));
+  const maxWait = new Promise((r) => setTimeout(r, 6000));
+  Promise.race([Promise.all([document.fonts?.ready, minShow]), maxWait]).then(() => {
+    loader.classList.add('is-done');
+    setTimeout(() => loader.remove(), 1200);
+    resolve();
+  });
+});
+
 document.querySelectorAll('.chip').forEach((chip) => chip.addEventListener('click', () => {
   document.querySelectorAll('.chip').forEach((c) => c.classList.toggle('is-active', c === chip));
   globe?.flyTo(chip.dataset.region);
@@ -96,11 +109,14 @@ if (!hasGsap) {
     else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
   }));
 
-  // ── Hero: intro + the sun swallowing the screen ─────
+  // ── Hero: intro (plays as the loader opens) + the sun swallowing the screen ──
+  const intro = gsap.timeline({ paused: true });
   if (!reduced) {
-    gsap.from('.hero-title .char', { yPercent: 115, rotate: 8, duration: 1.3, ease: 'expo.out', stagger: 0.05, delay: 0.15 });
-    gsap.from('.hero .eyebrow, .hero-sub, .scroll-hint', { autoAlpha: 0, y: 20, duration: 1, ease: 'power3.out', stagger: 0.12, delay: 0.6 });
+    intro.from('.hero-title .char', { yPercent: 115, rotate: 8, duration: 1.3, ease: 'expo.out', stagger: 0.05 }, 0.35)
+      .from('.hero .eyebrow, .hero-sub, .scroll-hint', { autoAlpha: 0, y: 20, duration: 1, ease: 'power3.out', stagger: 0.12 }, 0.8);
   }
+  if (lenis) lenis.stop();
+  loaderDone.then(() => { intro.play(); lenis?.start(); });
   gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=110%', pin: true, scrub: true } })
     .to(sun, { zoom: 1, ease: 'none', duration: 1 }, 0)
     .to('.hero-inner', { autoAlpha: 0, scale: 0.82, filter: 'blur(8px)', ease: 'power1.in', duration: 0.55 }, 0)
@@ -184,4 +200,33 @@ if (!hasGsap) {
 
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
   addEventListener('load', () => ScrollTrigger.refresh());
+}
+
+// ── Live status badges ────────────────────────────────
+// The apps don't allow cross-site reads, so this times a no-cors request:
+// Render holds requests while a sleeping free-tier app boots (~30s), so a quick
+// reply means it's awake and a slow one means it's waking up. The request
+// itself also starts waking the app while the visitor reads the page.
+document.querySelectorAll('.status[data-ping]').forEach((el) => {
+  const label = el.querySelector('span');
+  const set = (state, text) => { el.className = `status ${state}`; label.textContent = text; };
+  const ctrl = new AbortController();
+  const slow = setTimeout(() => set('is-waking', 'Waking up · about 30s'), 2500);
+  const giveUp = setTimeout(() => ctrl.abort(), 90000);
+  fetch(el.dataset.ping, { mode: 'no-cors', cache: 'no-store', signal: ctrl.signal })
+    .then(() => set('is-live', 'Live now'))
+    .catch(() => set('is-down', 'Not responding right now'))
+    .finally(() => { clearTimeout(slow); clearTimeout(giveUp); });
+});
+
+// ── Visitor stats (GoatCounter: free, no cookies, no consent banner) ──
+// Sign up at https://www.goatcounter.com, then put your site code here,
+// e.g. 'jaddison' for https://jaddison.goatcounter.com. Leave empty to disable.
+const GOATCOUNTER_CODE = '';
+if (GOATCOUNTER_CODE && location.hostname.endsWith('github.io')) {
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://gc.zgo.at/count.js';
+  s.dataset.goatcounter = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`;
+  document.head.appendChild(s);
 }

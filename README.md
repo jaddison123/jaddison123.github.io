@@ -46,3 +46,18 @@ Then open http://localhost:8137.
 - Contact links: LinkedIn and GitHub are in the footer; add an email button there too if you want one.
 - Intro line: change `Web apps, data maps & 3D worlds.` in the hero if you want different wording.
 - Chore Score screenshot: `assets/img/chore-score.webp` is the start screen. A shot of a filled-in house (chores, bills, chat) would show off more.
+
+## Visitor stats (GoatCounter)
+
+The site is wired for [GoatCounter](https://www.goatcounter.com): free, no cookies, so no consent banner is needed. To turn it on:
+
+1. Sign up at goatcounter.com and pick a site code, for example `jaddison`. Your dashboard will be `https://jaddison.goatcounter.com`.
+2. In `js/main.js`, set `const GOATCOUNTER_CODE = 'jaddison';` (your code), then commit and push.
+
+It only counts visits on `github.io`, so your local testing doesn't skew the numbers. Clicks on the "Try it live", GitHub and LinkedIn buttons are tracked as events (`chore-score-live`, `fishing-map-github`, `footer-linkedin` and so on).
+
+## Other features
+
+- **Loading intro:** an eclipse forms while the fonts and 3D load, then opens into the hero. It hides itself after 9 seconds even if a script fails.
+- **Live status badges:** each app's badge pings it on page load and shows "Live now" or "Waking up · about 30s". The ping also starts waking the Render app.
+- **Link previews:** `assets/img/og-image.jpg` (1200×627) is what LinkedIn, X and messaging apps show when the link is shared.
