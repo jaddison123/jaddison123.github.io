@@ -1,4 +1,4 @@
-// Codsquad: a dotted 3D globe with glowing, pulsing "fishing effort" hotspots
+// Fishing Map: a dotted 3D globe with glowing, pulsing "fishing effort" hotspots
 // hugging the coastlines (like the AIS heatmap in the app), schools of fish
 // circling the planet, and fly-to buttons for each region the app supports.
 import * as THREE from 'three';
