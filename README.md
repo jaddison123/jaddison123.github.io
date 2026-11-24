@@ -43,6 +43,6 @@ Then open http://localhost:8137.
 
 ## To do
 
-- Contact links: add email or LinkedIn in the footer (search for `TODO` in `index.html`).
+- Contact links: LinkedIn and GitHub are in the footer; add an email button there too if you want one.
 - Intro line: change `Web apps, data maps & 3D worlds.` in the hero if you want different wording.
 - Chore Score screenshot: `assets/img/chore-score.webp` is the start screen. A shot of a filled-in house (chores, bills, chat) would show off more.
