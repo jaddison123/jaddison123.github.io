@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jaddison — Portfolio</title>
+  <meta name="description" content="Selected work: Chore Score, a live shared ledger for student houses; Codsquad, a global fishing-activity map; and Black Sun, a short Blender render series.">
+  <meta name="theme-color" content="#07050a">
+  <meta property="og:title" content="Jaddison — Portfolio">
+  <meta property="og:description" content="Web apps, data maps and 3D worlds.">
+  <meta property="og:image" content="assets/img/render-town.webp">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23ff3b2a'/%3E%3Ccircle cx='32' cy='32' r='21' fill='%23000'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor-ring"></div><div class="cursor-dot"></div></div>
+
+  <header class="nav">
+    <a class="logo" href="#top" aria-label="Back to top"><span class="logo-sun"></span>JADDISON</a>
+    <nav aria-label="Projects">
+      <a href="#chore"><span>01</span> Chore Score</a>
+      <a href="#fish"><span>02</span> Codsquad</a>
+      <a href="#story"><span>03</span> Black Sun</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO ─────────────────────────────────────────── -->
+    <section id="top" class="hero">
+      <canvas id="sun-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <p class="eyebrow">Portfolio · 2026</p>
+        <h1 class="hero-title" data-split aria-label="Jaddison">JADDISON</h1>
+        <p class="hero-sub">Web apps, data maps &amp; 3D worlds.</p>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </section>
+
+    <!-- 01 CHORE SCORE ──────────────────────────────── -->
+    <section id="chore" class="project project--chore">
+      <div class="project-head">
+        <span class="index">01 / 03</span>
+        <h2 class="project-title" data-split>CHORE SCORE</h2>
+        <p class="kicker">Same roof, same team.</p>
+      </div>
+
+      <div class="project-grid">
+        <div class="project-copy reveal">
+          <p class="lead">A live, shared ledger for student houses. One person creates a house, sends the invite link, and everyone sees the same chores, bills, notes and chat on any device, in real time.</p>
+          <ul class="features">
+            <li><b>Chore board</b> with due dates, a weekly reset and one-tap roster rotation</li>
+            <li><b>Bill splitting</b> in GBP, to the penny, with each housemate's running balance</li>
+            <li><b>House chat</b> with reactions, read ticks and a typing indicator</li>
+            <li><b>No accounts:</b> just an invite link and a name</li>
+          </ul>
+          <ul class="tags" aria-label="Technologies">
+            <li>React 19</li><li>TypeScript</li><li>Three.js / R3F</li><li>Tailwind v4</li><li>Vite</li><li>Node</li><li>Upstash Redis</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn--primary magnetic" href="https://flatmate-ledger-prototype.onrender.com" target="_blank" rel="noopener">Try it live <span aria-hidden="true">↗</span></a>
+            <a class="btn magnetic" href="https://github.com/jaddison123/flatmate-ledger-prototype" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a>
+          </div>
+          <p class="note">Hosted on Render's free tier, so the first load can take about 30 seconds while it wakes up.</p>
+        </div>
+
+        <div class="stage stage--house reveal" id="house-stage">
+          <canvas id="house-canvas" aria-label="3D model of a shared house with chores and bills orbiting it"></canvas>
+          <p class="stage-hint">Drag to spin · scroll to open the roof</p>
+        </div>
+      </div>
+
+      <figure class="device tilt reveal">
+        <div class="device-bar"><i></i><i></i><i></i><span>flatmate-ledger-prototype.onrender.com</span></div>
+        <img src="assets/img/chore-score.webp" width="1120" height="642" loading="lazy" alt="Chore Score start screen: 'Set up your house', with panels to start a new house or join with an invite code">
+      </figure>
+    </section>
+
+    <!-- 02 CODSQUAD ─────────────────────────────────── -->
+    <section id="fish" class="project project--fish">
+      <div class="project-head">
+        <span class="index">02 / 03</span>
+        <h2 class="project-title" data-split>CODSQUAD</h2>
+        <p class="kicker">Every boat at sea, on one map.</p>
+      </div>
+
+      <div class="project-grid project-grid--flip">
+        <div class="stage stage--globe reveal" id="globe-stage">
+          <canvas id="globe-canvas" aria-label="3D globe with glowing fishing hotspots"></canvas>
+          <div class="globe-readout" aria-live="polite"><span>Region</span><b id="globe-region">Whole world</b></div>
+          <p class="stage-hint">Drag to spin · pick a region</p>
+        </div>
+
+        <div class="project-copy reveal">
+          <p class="lead">A fishing-activity tracker built on Global Fishing Watch's AIS data. Pick a date range, flag and gear type, and the map lights up with where fishing vessels have been working, with hours broken down by country and gear.</p>
+          <div class="chips" role="group" aria-label="Fly the globe to a region">
+            <button class="chip is-active" data-region="world">Whole world</button>
+            <button class="chip" data-region="northsea">North Sea</button>
+            <button class="chip" data-region="barents">Barents Sea</button>
+            <button class="chip" data-region="med">Mediterranean</button>
+            <button class="chip" data-region="westafrica">West Africa</button>
+            <button class="chip" data-region="grandbanks">Grand Banks</button>
+            <button class="chip" data-region="gulf">Gulf of Mexico</button>
+            <button class="chip" data-region="peru">Peru &amp; Chile</button>
+            <button class="chip" data-region="patagonia">Patagonian Shelf</button>
+            <button class="chip" data-region="ecs">East China Sea</button>
+            <button class="chip" data-region="scs">South China Sea</button>
+          </div>
+          <ul class="tags" aria-label="Technologies">
+            <li>Python</li><li>FastAPI</li><li>Global Fishing Watch API</li><li>Leaflet</li><li>JavaScript</li><li>httpx</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn--primary btn--cyan magnetic" href="https://codsquad-mr80.onrender.com/" target="_blank" rel="noopener">Try it live <span aria-hidden="true">↗</span></a>
+            <a class="btn magnetic" href="https://github.com/jaddison123/codsquad" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a>
+          </div>
+          <p class="note">Hosted on Render's free tier, so the first load can take about 30 seconds while it wakes up.</p>
+        </div>
+      </div>
+
+      <figure class="device tilt reveal">
+        <div class="device-bar"><i></i><i></i><i></i><span>codsquad-mr80.onrender.com</span></div>
+        <img src="assets/img/fishing-map.webp" width="1600" height="1000" loading="lazy" alt="Codsquad fishing activity map: a dark world map with cyan fishing hotspots along coastlines, filters and fishing hours by flag in a side panel">
+      </figure>
+    </section>
+
+    <!-- 03 BLACK SUN ────────────────────────────────── -->
+    <section id="story" class="story">
+      <div class="story-pin">
+        <canvas id="story-canvas" aria-hidden="true"></canvas>
+        <div class="story-fallback">
+          <img src="assets/img/render-room.webp" srcset="assets/img/render-room-960.webp 960w, assets/img/render-room.webp 1920w" sizes="100vw" width="1920" height="1080" loading="lazy" alt="A lantern-lit bedroom; a December calendar is crossed off day by day and a newspaper reads 'Evacuation order in effect'">
+          <img src="assets/img/render-door.webp" srcset="assets/img/render-door-960.webp 960w, assets/img/render-door.webp 1920w" sizes="100vw" width="1920" height="1080" loading="lazy" alt="Looking out through a dark doorway at a vast black sun, its red corona reflected in puddles">
+          <img src="assets/img/render-town.webp" srcset="assets/img/render-town-960.webp 960w, assets/img/render-town.webp 1920w" sizes="100vw" width="1920" height="1080" loading="lazy" alt="A tiny settlement silhouetted against an enormous black sun ringed with red and white waves, beside an evacuation-order sign">
+        </div>
+        <div class="story-hud">
+          <div class="story-title">
+            <span class="index">03 / 03</span>
+            <h2 class="project-title" data-split>BLACK SUN</h2>
+            <p class="kicker">Three renders · Blender</p>
+          </div>
+          <ol class="story-chapters" aria-hidden="true">
+            <li class="is-active"><span>I</span>Interior</li>
+            <li><span>II</span>Threshold</li>
+            <li><span>III</span>Eclipse</li>
+          </ol>
+          <div class="story-bar"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER ───────────────────────────────────────── -->
+    <footer class="footer">
+      <p class="eyebrow">That's the work</p>
+      <h2 class="footer-title" data-split>SAY HELLO</h2>
+      <div class="actions">
+        <a class="btn btn--primary magnetic" href="https://github.com/jaddison123" target="_blank" rel="noopener">github.com/jaddison123 <span aria-hidden="true">↗</span></a>
+        <!-- TODO: add email / LinkedIn here -->
+      </div>
+      <p class="footer-small">Built with Three.js, GSAP &amp; a lot of shaders. © 2026 Jaddison</p>
+    </footer>
+  </main>
+</body>
+</html>
