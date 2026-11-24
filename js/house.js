@@ -206,7 +206,7 @@ export async function initHouse(canvas, { reduced }) {
     camera.updateProjectionMatrix();
   };
   resize();
-  addEventListener('resize', resize);
+  new ResizeObserver(resize).observe(canvas);
 
   const state = { open: 0 };
   let open = 0, spin = 0;

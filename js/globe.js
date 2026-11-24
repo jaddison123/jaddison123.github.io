@@ -212,7 +212,7 @@ export async function initGlobe(canvas, { reduced, onRegion }) {
     camera.updateProjectionMatrix();
   };
   resize();
-  addEventListener('resize', resize);
+  new ResizeObserver(resize).observe(canvas);
 
   // fly the camera to a region along a great-circle arc
   let resumeTimer = 0, flying = null;

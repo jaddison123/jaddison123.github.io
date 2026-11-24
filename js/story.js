@@ -16,22 +16,21 @@ float hash(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); ret
 float noise(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f*f*(3.0-2.0*f);
   return mix(mix(hash(i), hash(i+vec2(1,0)), u.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y); }
 
-// cover-fit UVs for a 16:9 image, with zoom + mouse parallax
-vec2 coverUv(vec2 uv, float scale){
+// contain-fit UVs for a 16:9 image: the whole render is always visible,
+// letterboxed if the screen shape differs, with a gentle mouse parallax
+vec2 fitUv(vec2 uv, float scale){
   float sa = uRes.x/uRes.y, ia = 16.0/9.0;
-  vec2 s = sa > ia ? vec2(1.0, ia/sa) : vec2(sa/ia, 1.0);
-  // portrait phones: cover would show a thin slice, so fit wider and letterbox
-  if (sa < 1.0) s = vec2(1.0, ia/sa) / 1.75;
+  vec2 s = sa > ia ? vec2(sa/ia, 1.0) : vec2(1.0, ia/sa);
   uv = (uv - 0.5) * s / scale + 0.5;
-  // fake depth: the bottom (foreground) shifts more than the top
-  uv += uMouse * 0.012 * (1.3 - uv.y);
+  uv += uMouse * 0.006;
   return uv;
 }
 
 vec3 shot(int i, vec2 sUv){
   float s = uProgress - float(i);
-  float scale = 1.1 - 0.05*clamp(s, -1.0, 1.0);
-  vec2 uv = coverUv(sUv, scale);
+  // a slow drift between 94% and 97% size, so nothing is ever cropped
+  float scale = 0.955 + 0.015*clamp(s, -1.0, 1.0);
+  vec2 uv = fitUv(sUv, scale);
   vec3 col;
   if (i == 0) {
     col = texture2D(t0, uv).rgb;
@@ -53,7 +52,9 @@ vec3 shot(int i, vec2 sUv){
     col += col * red * 0.35 * (0.5 + 0.5*sin(d*28.0 - uTime*2.0)) * smoothstep(0.42, 0.5, d);
   }
   // soft letterbox outside the image
-  float inb = smoothstep(-0.02, 0.03, uv.y) * (1.0 - smoothstep(0.97, 1.02, uv.y));
+  float e = 0.002;
+  float inb = smoothstep(-e, 0.0, uv.x) * (1.0 - smoothstep(1.0, 1.0 + e, uv.x))
+            * smoothstep(-e, 0.0, uv.y) * (1.0 - smoothstep(1.0, 1.0 + e, uv.y));
   return col * inb;
 }
 
@@ -127,7 +128,7 @@ export function initStory(canvas, { reduced }) {
     uniforms.uRes.value.set(w * dpr, h * dpr);
   };
   resize();
-  addEventListener('resize', resize);
+  new ResizeObserver(resize).observe(canvas);
 
   const state = { progress: 0 };
   const target = new THREE.Vector2();

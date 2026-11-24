@@ -122,7 +122,7 @@ export function initSun(canvas, { reduced }) {
     uniforms.uRes.value.set(w * dpr, h * dpr);
   };
   resize();
-  window.addEventListener('resize', resize);
+  new ResizeObserver(resize).observe(canvas);
 
   const target = new THREE.Vector2();
   const state = { zoom: 0 };
