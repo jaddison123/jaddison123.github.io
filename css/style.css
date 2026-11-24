@@ -238,3 +238,14 @@ a { color: inherit; }
   .grain, .scroll-hint i { animation: none; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* ── Social icons beside the logo ─────────────────── */
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-divider { width: 1px; height: 18px; background: currentColor; opacity: .35; }
+.nav-social { display: grid; place-items: center; width: 30px; height: 30px; margin: -6px -4px; border-radius: 8px; opacity: .8; transition: opacity .2s, transform .2s; }
+.nav-social svg { width: 17px; height: 17px; }
+.nav-social:hover, .nav-social:focus-visible { opacity: 1; transform: translateY(-2px); }
+@media (max-width: 400px) {
+  .nav-brand { gap: 10px; }
+  .logo { font-size: 18px; }
+}
