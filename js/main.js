@@ -174,7 +174,7 @@ if (!hasGsap) {
     });
   }
 
-  // ── Black Sun: pinned three-shot sequence ────────────
+  // ── Eclipse: pinned three-shot sequence ────────────
   if (story) {
     const chapters = document.querySelectorAll('.story-chapters li');
     const bar = document.querySelector('.story-bar i');

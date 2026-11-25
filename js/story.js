@@ -1,5 +1,5 @@
-// Black Sun: the three renders as a pinned, full-screen scroll sequence.
-// Shots change through an expanding "black sun" wipe with a burning corona edge.
+// Eclipse: the three renders as a pinned, full-screen scroll sequence.
+// Shots change through an expanding eclipse wipe with a burning corona edge.
 // Each shot gets a small living detail: lantern flicker, puddle ripples, corona pulse.
 import * as THREE from 'three';
 import { makeLoop, pointer, isMobile } from './util.js';
@@ -46,10 +46,13 @@ vec3 shot(int i, vec2 sUv){
     col = texture2D(t1, uv).rgb;
   } else {
     col = texture2D(t2, uv).rgb;
-    // corona pulse: brighten red rings in waves moving outward
-    float d = length((uv - vec2(0.5, 0.606)) * vec2(16.0/9.0, 1.0));
+    // corona pulse: the glow around the eclipse breathes and flickers like plasma
+    vec2 cq = (uv - vec2(0.5, 0.646)) * vec2(16.0/9.0, 1.0);
+    float d = length(cq);
     float red = clamp(col.r - max(col.g, col.b), 0.0, 1.0);
-    col += col * red * 0.35 * (0.5 + 0.5*sin(d*28.0 - uTime*2.0)) * smoothstep(0.42, 0.5, d);
+    float flick = noise(vec2(atan(cq.y, cq.x) * 6.0, uTime * 0.8)) * 0.6 + 0.4 + 0.25*sin(uTime*1.3);
+    float rim = smoothstep(0.43, 0.46, d) * (1.0 - smoothstep(0.5, 0.68, d));
+    col += col * red * 0.55 * flick * rim;
   }
   // soft letterbox outside the image
   float e = 0.002;

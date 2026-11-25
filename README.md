@@ -6,10 +6,10 @@ A single-page portfolio with live 3D scenes, built for GitHub Pages. No build st
 
 | Section | 3D / effect | File |
 | --- | --- | --- |
-| Hero | Shader-drawn black sun (wavy corona, spotted sky, cursor ripples). Scrolling lets the sun swallow the screen. | `js/sun.js` |
+| Hero | Shader-drawn eclipse (wavy corona, spotted sky, cursor ripples). Scrolling lets the eclipse swallow the screen. | `js/sun.js` |
 | 01 Chore Score | Low-poly four-room house. Scrolling lifts the roof and pulls the rooms apart; chore and bill cards orbit it and coins rise out of it. Drag to spin. | `js/house.js` |
 | 02 Fishing Map | Dotted globe with fishing hotspots that glow and pulse along the coasts, schools of fish circling it, and region buttons that fly the camera to that region. | `js/globe.js` |
-| 03 Black Sun | The three Blender renders as a pinned full-screen sequence. Each shot gives way to the next through an expanding black sun with a corona edge, plus a flickering lantern, rippling puddles and a pulsing corona. | `js/story.js` |
+| 03 Eclipse | The three Blender renders as a pinned full-screen sequence. Each shot gives way to the next through an expanding eclipse with a corona edge, plus a flickering lantern, rippling puddles and a pulsing corona. | `js/story.js` |
 
 `js/main.js` handles smooth scrolling, pinning, the text reveals, the custom cursor, magnetic buttons and the tilting screenshot frames.
 

@@ -1,4 +1,4 @@
-// Hero: a live, shader-drawn version of the black sun from the Blender renders.
+// Hero: a live, shader-drawn version of the eclipse from the Blender renders.
 // Wavy red/white corona rings, a spotted red sky, cursor ripples, and a scroll
 // "zoom" that lets the disc swallow the screen.
 import * as THREE from 'three';
